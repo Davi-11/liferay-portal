@@ -1,109 +1,100 @@
 @component-name = "portal-web-forms-and-data-lists"
 definition {
-property testray.main.component.name = "Forms";
-setUp {
-TestCase.setUpPortalInstance();
-User.firstLoginPG();
-Navigator.openURL();
-}
-tearDown {
-User.logoutAndLoginPG(
-userLoginEmailAddress = "test@liferay.com",
-userLoginFullName = "Test Test");
-}
-@description = "liferay-portal Test six"
-@priority = "5"
-test TestandoMecanismosDoPortal {
 
-    
-    FormsAdmin.addForm();
+	property testray.main.component.name = "Forms";
 
-    
-    Form.editName();
+	setUp {
+		TestCase.setUpPortalInstance();
 
-    
-    Form.addTextField(fieldPositionNumber = 0);
+		User.firstLoginPG();
 
-    
-    Form.editFieldLabelMetal(fieldValue = "Full Name");
+		Navigator.openURL();
+	}
 
-    
-    Form.closeSidebar();
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
 
-    
-    Form.gotoAddField(
-	fieldPositionNumber = 1,
-	fieldType = "Numeric");
-    
-    Form.editFieldLabelMetal(fieldValue = "Age");
+	@description = "liferay-portal Test six"
+	@priority = 5
+	test TestandoMecanismosDoPortal {
+		FormsAdmin.addForm();
 
-    
-    Form.addTranslation(localizedLanguage = "Portuguese (Brazil)");
-    
-    
-    FormViewBuilder.editFieldLabel(
-        
-    fieldLabel = "Full Name",
-    label = "Nome Completo");
+		Form.editName();
 
-    FormViewBuilder.editFieldLabel(
-        
-    fieldLabel = "Age",
-    label = "Idade");
+		Form.addTextField(fieldPositionNumber = 0);
 
+		Form.editFieldLabelMetal(fieldValue = "Full Name");
 
-    Form.publishForm();
+		Form.closeSidebar();
 
-    FormsAdminNavigator.gotoPublishedForm();
-    
-    FormViewBuilder.editText(
-    fieldName = "Full Name",
-    fieldValue = "Luiz Davi");
+		Form.gotoAddField(
+			fieldPositionNumber = 1,
+			fieldType = "Numeric");
 
-    FormViewBuilder.editText(
-    fieldName = "Age",
-    fieldValue = "22");
+		Form.editFieldLabelMetal(fieldValue = "Age");
 
-    FormPortlet.clickSubmit();
+		Form.addTranslation(localizedLanguage = "Portuguese (Brazil)");
 
-    Form.submitAgain();
+		FormViewBuilder.editFieldLabel(
+			fieldLabel = "Full Name",
+			label = "Nome Completo");
 
-    FormViewBuilder.changeAppLanguageTo(changeAppLanguageTo = "en-US");
+		FormViewBuilder.editFieldLabel(
+			fieldLabel = "Age",
+			label = "Idade");
 
-    FormViewBuilder.changeAppLanguageTo(changeAppLanguageTo = "português-Brasil");
-    
+		Form.publishForm();
 
-    FormViewBuilder.editText(
+		FormsAdminNavigator.gotoPublishedForm();
 
-    fieldName = "Nome Completo",
-    fieldValue = "Luiz Davi Vicente");
+		FormViewBuilder.editText(
+			fieldName = "Full Name",
+			fieldValue = "Luiz Davi");
 
-    FormViewBuilder.editText(
+		FormViewBuilder.editText(
+			fieldName = "Age",
+			fieldValue = 22);
 
-    fieldName = "Idade",
-    fieldValue = "22");
+		FormPortlet.clickSubmit();
 
-   FormPortlet.clickSubmit();
+		Form.submitAgain();
 
-   Form.submitAgain();
+		FormViewBuilder.changeAppLanguageTo(changeAppLanguageTo = "en-US");
 
-   Navigator.openWithAppendToBaseURL(
-    baseURL = "http://localhost:8080",
-	urlAppend = "home");
+		FormViewBuilder.changeAppLanguageTo(changeAppLanguageTo = "português-Brasil");
 
-    ProductMenu.gotoPortlet(
+		FormViewBuilder.editText(
+			fieldName = "Nome Completo",
+			fieldValue = "Luiz Davi Vicente");
+
+		FormViewBuilder.editText(
+			fieldName = "Idade",
+			fieldValue = 22);
+
+		FormPortlet.clickSubmit();
+
+		Form.submitAgain();
+
+		Navigator.openWithAppendToBaseURL(
+			baseURL = "http://localhost:8080",
+			urlAppend = "home");
+
+		ProductMenu.gotoPortlet(
 			category = "Content & Data",
 			portlet = "Forms");
 
-FormsAdminNavigator.gotoViewEntries();
+		FormsAdminNavigator.gotoViewEntries();
 
-LexiconEntry.viewEntryContent(
-            key_rowAny = "Luiz Davi",
-            key_rowEntry = "22");
+		LexiconEntry.viewEntryContent(
+			key_rowAny = "Luiz Davi",
+			key_rowEntry = 22);
 
-LexiconEntry.viewEntryContent(
-            key_rowAny = "Luiz Davi Vicente",
-            key_rowEntry = "22");
+		LexiconEntry.viewEntryContent(
+			key_rowAny = "Luiz Davi Vicente",
+			key_rowEntry = 22);
+	}
 
-}
 }
